@@ -1,2 +1,0 @@
-import { calcDelta } from "./bhaskara";
-

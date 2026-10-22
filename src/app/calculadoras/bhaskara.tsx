@@ -1,13 +1,11 @@
-import * as Device from "expo-device";
-import { Platform, StyleSheet, TextInput, Button, Text } from "react-native";
-import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
-import { useState } from "react";
-import { AnimatedIcon } from "@/components/animated-icon";
-import { HintRow } from "@/components/hint-row";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
-import { WebBadge } from "@/components/web-badge";
 import { BottomTabInset, MaxContentWidth, Spacing } from "@/constants/theme";
+import * as Device from "expo-device";
+import { useState } from "react";
+import { Alert, Button, Platform, StyleSheet, TextInput } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 
 function getDevMenuHint() {
   if (Platform.OS === "web") {
@@ -27,82 +25,79 @@ function getDevMenuHint() {
     </ThemedText>
   );
 }
-export function calcDelta(a: number, b: number, c: number) {
-  let delta = b ** 2 - 4 * a * c;
-  return delta;
+
+export function calcDelta(a, b, c){
+  return b ** 2 - 4 * a * c;
 }
 
-export default function pitagorasView() {
-  const [a, setA] = useState("");
-  const [b, setB] = useState("");
-  const [c, setC] = useState("");
-  const [result, setResult] = useState("");
+export function calcBhaskara(a, b, c){
 
-  function calcular() {
-    let valueA = Number(a);
-    let valueB = Number(b);
-    let valueC = Number(c);
+  const delta = calcDelta(a,b,c);
+  console.log("delta", delta);
 
-    if (isNaN(valueA) || isNaN(valueB) || isNaN(valueC)) {
-      alert("A, b ou C inválidos.");
-      return;
-    }
-
-    let delta = calcDelta(valueA, valueB, valueC);
-
-    if (delta < 0) {
-      alert("valor de delta negativo");
-      return;
-    } else if (delta === 0) {
-      valueB = valueB * -1;
-      valueA = valueA * 2;
-      let x1 = valueB / valueA;
-      return setResult(`Resultado (DELTA = 0): X1 = ${x1} `);
-    }
-    let x1;
-    let x2;
-    valueB = valueB * -1;
-    x1 = ((valueB + delta ** 0.5) / 2) * valueA;
-    x2 = ((valueB - delta ** 0.5) / 2) * valueA;
-
-    setResult(`Resultado: X1 = ${x1} | X2 = ${x2}.`);
+  if (delta === 0) {
+    const x1 = (b * -1) / (2 * a);
+    console.log("x1", x1);
+  } else if (delta > 0) {
+    const x1 = (b * -1 + delta ** 0.5) / (2 * a);
+    const x2 = (b * -1 - delta ** 0.5) / (2 * a);
+    console.log("x1", x1);
+    console.log("x2", x2);
+  } else {
+    console.log("Error");
   }
+}
+export default function PitagorasScreen() {
+  const [valueA, onChangeTextA] = useState(0);
+  const [valueB, onChangeTextB] = useState(0);
+  const [valueC, onChangeTextC] = useState(0);
+
+  const calc = () => {
+    Alert.alert("asdasd");
+    console.log("valueA", valueA);
+    console.log("valueB", valueB);
+    console.log("valueC", valueC);
+
+    const delta = valueB ** 2 - 4 * valueA * valueC;
+
+    console.log("delta", delta);
+
+    if (delta === 0) {
+      const x1 = (valueB * -1) / (2 * valueA);
+      console.log("x1", x1);
+    } else if (delta > 0) {
+      const x1 = (valueB * -1 + delta ** 0.5) / (2 * valueA);
+      const x2 = (valueB * -1 - delta ** 0.5) / (2 * valueA);
+      console.log("x1", x1);
+      console.log("x2", x2);
+    } else {
+      console.log("Error");
+    }
+  };
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.heroSection}>
-        <Text style={styles.titleText}>Bhaskara</Text>
-        <Text style={styles.baseText}>Ax² + Bx + C = 0</Text>
-        <TextInput
-          style={styles.input}
-          id="valueA"
-          value={a}
-          onChangeText={setA}
-          placeholder="A"
-          inputMode="numeric"
-        />
-        <TextInput
-          style={styles.input}
-          id="valueB"
-          value={b}
-          onChangeText={setB}
-          placeholder="B"
-          inputMode="numeric"
-        />
-        <TextInput
-          style={styles.input}
-          id="valueC"
-          value={c}
-          onChangeText={setC}
-          placeholder="C"
-          inputMode="numeric"
-        />
-
-        <Button title="Calcular" color="#226bf5" onPress={calcular} />
-
-        <Text style={styles.titleText}>{result}</Text>
+    <ThemedView style={styles.container}>
+      <SafeAreaView style={styles.safeArea}>
+        <ThemedView style={styles.heroSection}>
+          <TextInput
+            style={styles.input}
+            value={valueA}
+            onChangeText={onChangeTextA}
+          />
+          <TextInput
+            style={styles.input}
+            value={valueB}
+            onChangeText={onChangeTextB}
+          />
+          <TextInput
+            style={styles.input}
+            value={valueC}
+            onChangeText={onChangeTextC}
+          />
+          <Button title="Calcular" onPress={calc} />
+        </ThemedView>
       </SafeAreaView>
-    </SafeAreaProvider>
+    </ThemedView>
   );
 }
 
@@ -141,16 +136,6 @@ const styles = StyleSheet.create({
     borderRadius: Spacing.four,
   },
   input: {
-    textAlign: "center",
-    width: 200,
     borderWidth: 1,
-    padding: 10,
-  },
-  baseText: {
-    fontFamily: "Cochin",
-  },
-  titleText: {
-    fontSize: 20,
-    fontWeight: "bold",
   },
 });
