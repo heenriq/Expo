@@ -3,14 +3,7 @@ import { ThemedView } from "@/components/themed-view";
 import { BottomTabInset, MaxContentWidth, Spacing } from "@/constants/theme";
 import * as Device from "expo-device";
 import { useState } from "react";
-import {
-  Alert,
-  Button,
-  Platform,
-  StyleSheet,
-  TextInput,
-  Text,
-} from "react-native";
+import { Button, Platform, StyleSheet, Text, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 function getDevMenuHint() {
@@ -38,47 +31,41 @@ export function calcDelta(a, b, c) {
 
 export function calcBhaskara(a, b, c) {
   const delta = calcDelta(a, b, c);
-  console.log("delta", delta);
 
   if (delta === 0) {
     const x1 = (b * -1) / (2 * a);
-    console.log("x1", x1);
+    return x1;
   } else if (delta > 0) {
     const x1 = (b * -1 + delta ** 0.5) / (2 * a);
     const x2 = (b * -1 - delta ** 0.5) / (2 * a);
-    console.log("x1", x1);
-    console.log("x2", x2);
+    return { x1, x2 };
   } else {
-    console.log("Error");
+    return "Não existem raizes reais.";
   }
 }
 
-export default function PitagorasScreen() {
+export default function BhaskaraScreen() {
   const [valueA, onChangeTextA] = useState(0);
   const [valueB, onChangeTextB] = useState(0);
   const [valueC, onChangeTextC] = useState(0);
-  const [result, onChangeTextresult] = useState(0);
+  const [result, onChangeTextresult] = useState("0");
 
   const calc = () => {
-    Alert.alert("asdasd");
-    console.log("valueA", valueA);
-    console.log("valueB", valueB);
-    console.log("valueC", valueC);
-
     const delta = calcDelta(valueA, valueB, valueC);
 
-    console.log("delta", delta);
-
     if (delta === 0) {
-      const x1 = (valueB * -1) / (2 * valueA);
-      console.log("x1", x1);
+      const x1 = calcBhaskara(valueA, valueB, valueC);
+      onChangeTextresult(`(apenas uma raiz)\nDelta = ${delta}\nX1 = ${x1}`);
     } else if (delta > 0) {
-      const x1 = (valueB * -1 + delta ** 0.5) / (2 * valueA);
-      const x2 = (valueB * -1 - delta ** 0.5) / (2 * valueA);
+      const result = calcBhaskara(valueA, valueB, valueC);
 
-      onChangeTextresult(`Resultado: \n X1 = ${x1} \n X2 = ${x2} \n Delta = ${delta}`);
+      onChangeTextresult(
+        `Delta = ${delta}\nX1 = ${result.x1}\nX2 = ${result.x2}`,
+      );
     } else {
-      console.log("Error");
+      onChangeTextresult(
+        `(Delta < 0. Não possui raizes reais)\nDelta = ${delta}`,
+      );
     }
   };
 
@@ -154,8 +141,12 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 20,
     fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: -5,
   },
   baseText: {
+    fontSize: 15,
     fontFamily: "Cochin",
+    marginVertical: -10,
   },
 });

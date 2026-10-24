@@ -15,13 +15,13 @@ export default function AppTabs() {
       <TabList asChild>
         <CustomTabList>
           <TabTrigger name="home" href="/" asChild>
-            <TabButton>Home Do Adelar</TabButton>
+            <TabButton>Home Do Pedro</TabButton>
           </TabTrigger>
           <TabTrigger name="explore" href="/explore" asChild>
             <TabButton>Explore</TabButton>
           </TabTrigger>
           <TabTrigger name="calculadoras" href="/calculadoras" asChild>
-            <TabButton>calculadoras</TabButton>
+            <TabButton>calculadora</TabButton>
           </TabTrigger>
           <TabTrigger name="bhaskara" href="/calculadoras/bhaskara" asChild>
             <TabButton>bhaskara</TabButton>
