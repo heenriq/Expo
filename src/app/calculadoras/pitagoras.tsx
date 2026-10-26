@@ -33,22 +33,22 @@ function getDevMenuHint() {
   );
 }
 
-export function calcPitagoras(a, b, c) {
+export function calcPitagoras(a: number, b: number, c: number) {
   if (
     (isNaN(a) && isNaN(b)) ||
     (isNaN(a) && isNaN(c)) ||
     (isNaN(b) && isNaN(c))
   ) {
-    return "Erro";
+    return { result: "err" };
   } else if (isNaN(a)) {
     a = c + b;
-    return a;
+    return { result: a, lado: "A" };
   } else if (isNaN(b)) {
     b = a - c;
-    return b;
+    return { result: b, lado: "B" };
   } else {
     c = a - b;
-    return c;
+    return { result: c, lado: "C" };
   }
 }
 
@@ -63,7 +63,13 @@ export default function pitagorasScreen() {
     const b = parseFloat(valueB);
     const c = parseFloat(valueC);
     console.log(a, b, c);
-    setResult(`Resultado: ${calcPitagoras(a, b, c)}`);
+    const result = calcPitagoras(a, b, c);
+    if (result.result === "err") {
+      return setResult(
+        "Erro! Preencha ao menos 2 lados para receber o valor do 3.",
+      );
+    }
+    setResult(`O lado "${result.lado}" é igual a: ${result.result}`);
   };
 
   return (

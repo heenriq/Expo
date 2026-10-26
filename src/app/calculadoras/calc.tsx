@@ -31,7 +31,9 @@ function getDevMenuHint() {
     </ThemedText>
   );
 }
-
+export function calc() {
+  alert("pressionado")
+}
 export default function calcScreen() {
   return (
     <ThemedView style={styles.container}>
@@ -41,7 +43,7 @@ export default function calcScreen() {
             <Text style={styles.textoVisor}></Text>
           </View>
           <View style={styles.linha}>
-            <Button title="7" />
+            <Button title="7" onPress={calc} />
             <Button title="8" />
             <Button title="9" />
             <Button title="+" />
@@ -112,18 +114,18 @@ const styles = StyleSheet.create({
   espacoExtra: {
     marginLeft: 37,
   },
-visor: {
-  width: 300,
-  height: 80,
-  backgroundColor: "#222222",
-  borderRadius: 8,
-  paddingHorizontal: 16,
-  justifyContent: "center",
-  alignItems: "flex-end",
-  marginBottom: 20,
-},
-textoVisor: {
-  fontSize: 28,
-  color: "#ffffff",
-},
+  visor: {
+    width: 300,
+    height: 80,
+    backgroundColor: "#222222",
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    justifyContent: "center",
+    alignItems: "flex-end",
+    marginBottom: 20,
+  },
+  textoVisor: {
+    fontSize: 28,
+    color: "#ffffff",
+  },
 });
