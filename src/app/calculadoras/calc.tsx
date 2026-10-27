@@ -31,40 +31,63 @@ function getDevMenuHint() {
     </ThemedText>
   );
 }
-export function calc() {
-  alert("pressionado")
+export function calc() {}
+
+export function operacao(op: string, dis) {
+  dis = parseFloat(dis)
+  if(isNaN(dis)){
+    alert("Selecione ao menos um numero!")
+  }
 }
+
 export default function calcScreen() {
+  const [visor, setVisor] = useState("0");
+
+  const digitar = (tecla: string) => {
+    setVisor(visor + tecla);
+  };
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <ThemedView style={styles.heroSection}>
           <View style={styles.visor}>
-            <Text style={styles.textoVisor}></Text>
+            <Text style={styles.textoVisor}>{visor}</Text>
           </View>
           <View style={styles.linha}>
-            <Button title="7" onPress={calc} />
-            <Button title="8" />
-            <Button title="9" />
-            <Button title="+" />
+            {["7", "8", "9"].map((numero) => (
+              <Button
+                key={numero}
+                title={numero}
+                onPress={() => digitar(numero)}
+              />
+            ))}
+            <Button title="+" onPress={() => operacao("+", visor)} />
           </View>
           <View style={styles.linha}>
-            <Button title="4" />
-            <Button title="5" />
-            <Button title="6" />
-            <Button title="-" />
+            {["4", "5", "6"].map((numero) => (
+              <Button
+                key={numero}
+                title={numero}
+                onPress={() => digitar(numero)}
+              />
+            ))}
+            <Button title="-" onPress={() => operacao("-", visor)} />
           </View>
           <View style={styles.linha}>
-            <Button title="1" />
-            <Button title="2" />
-            <Button title="3" />
-            <Button title="x" />
+            {["1", "2", "3"].map((numero) => (
+              <Button
+                key={numero}
+                title={numero}
+                onPress={() => digitar(numero)}
+              />
+            ))}{" "}
+            <Button title="x" onPress={() => operacao("x", visor)} />
           </View>
           <View style={styles.linha}>
             <Button title="C" />
-            <Button title="0" />
+            <Button title="0" onPress={() => digitar("0")} />
             <View style={styles.espacoExtra}>
-              <Button title="/" />
+              <Button title="/" onPress={() => operacao("/", visor)} />
             </View>
           </View>
         </ThemedView>
