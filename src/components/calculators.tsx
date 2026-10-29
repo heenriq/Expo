@@ -19,3 +19,50 @@ export function calcDelta(a, b, c){
       console.log("Error");
     }
   }
+
+  export function calcPitagoras(a: number, b: number, c: number) {
+  if (
+    (isNaN(a) && isNaN(b)) ||
+    (isNaN(a) && isNaN(c)) ||
+    (isNaN(b) && isNaN(c))
+  ) {
+    return { result: "err" };
+  } else if (isNaN(a)) {
+    a = c + b;
+    return { result: a, lado: "A" };
+  } else if (isNaN(b)) {
+    b = a - c;
+    return { result: b, lado: "B" };
+  } else {
+    c = a - b;
+    return { result: c, lado: "C" };
+  }
+}
+
+export function calc(a: number, op: string, b: number): number {
+  if (op === "+") {
+    return a + b;
+  } else if (op === "-") {
+    return a - b;
+  } else if (op === "x") {
+    return a * b;
+  } else {
+    return a / b;
+  }
+}
+
+export function operacao(dis: string, operador: string): number {
+  if (operador !== "") {
+    alert("Somente uma operação é permitida por vez!");
+    return NaN;
+  }
+  const numero = parseFloat(dis);
+  if (isNaN(numero)) {
+    alert("Selecione ao menos um numero!");
+  }
+  return numero;
+}
+
+export function digitar(visor: string, tecla: string): string {
+  return visor + tecla;
+}

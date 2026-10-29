@@ -1,5 +1,66 @@
-import { beforeEach, describe, expect, jest, test } from "@jest/globals";
-import { calc, digitar, operacao } from "../src/app/calculadoras/calc";
+import { describe, expect, test } from "@jest/globals";
+import {
+  calcDelta,
+  calcPitagoras,
+  calc,
+  digitar,
+  operacao,
+} from "../src/components/calculators";
+
+describe("Bhaskara", () => {
+  test("Delta negativo", () => {
+    // Dado / Arrange
+    const a = 1;
+    const b = 1;
+    const c = 1;
+    // Quando / Act
+    const resultado = calcDelta(a, b, c);
+
+    // Então / Assert
+    expect(resultado).toBeLessThan(0);
+  });
+  test("Delta zerado", () => {
+    // Dado / Arrange
+    const a = 1;
+    const b = 2;
+    const c = 1;
+    // Quando / Act
+    const resultado = calcDelta(a, b, c);
+
+    // Então / Assert
+    expect(resultado).toBe(0);
+  });
+});
+
+describe("Pitágoras", () => {
+  test("Calcula A (a² = b² + c²)", () => {
+    const resultado = calcPitagoras(NaN, 3, 4);
+    expect(resultado.result).toBe(7);
+    expect(resultado.lado).toBe("A");
+  });
+
+  test("Calcula B (b² = a² - c²)", () => {
+    const resultado = calcPitagoras(5, NaN, 4);
+    expect(resultado.result).toBe(1);
+    expect(resultado.lado).toBe("B");
+  });
+
+  test("Calcula C (c² = a² - b²)", () => {
+    const resultado = calcPitagoras(5, 3, NaN);
+    expect(resultado.result).toBe(2);
+    expect(resultado.lado).toBe("C");
+  });
+
+  test("Erro quando faltam dois lados", () => {
+    expect(calcPitagoras(NaN, NaN, 4).result).toBe("err");
+    expect(calcPitagoras(NaN, 3, NaN).result).toBe("err");
+    expect(calcPitagoras(5, NaN, NaN).result).toBe("err");
+  });
+
+  test("Erro quando nenhum lado é informado", () => {
+    expect(calcPitagoras(NaN, NaN, NaN).result).toBe("err");
+  });
+});
 
 describe("calc", () => {
   test("Soma", () => {
