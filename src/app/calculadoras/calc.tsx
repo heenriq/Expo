@@ -31,21 +31,71 @@ function getDevMenuHint() {
     </ThemedText>
   );
 }
-export function calc() {}
 
-export function operacao(op: string, dis) {
-  dis = parseFloat(dis)
-  if(isNaN(dis)){
-    alert("Selecione ao menos um numero!")
+
+export function calc(a: number, op: string, b: number): number {
+  if (op === "+") {
+    return a + b;
+  } else if (op === "-") {
+    return a - b;
+  } else if (op === "x") {
+    return a * b;
+  } else {
+    return a / b;
   }
 }
 
-export default function calcScreen() {
-  const [visor, setVisor] = useState("0");
 
-  const digitar = (tecla: string) => {
-    setVisor(visor + tecla);
-  };
+export function operacao(dis: string, operador: string): number {
+  if (operador !== "") {
+    alert("Somente uma operação é permitida por vez!");
+    return NaN;
+  }
+  const numero = parseFloat(dis);
+  if (isNaN(numero)) {
+    alert("Selecione ao menos um numero!");
+  }
+  return numero;
+}
+
+// Cola o número apertado no final do visor
+export function digitar(visor: string, tecla: string): string {
+  return visor + tecla;
+}
+
+export default function calcScreen() {
+  const [visor, setVisor] = useState("");
+  const [numeroA, setNumeroA] = useState(0);
+  const [operador, setOperador] = useState("");
+
+  function clicarOperacao(op: string) {
+    const a = operacao(visor, operador);
+    if (isNaN(a)) {
+      return;
+    }
+    setNumeroA(a);
+    setOperador(op);
+    setVisor("");
+  }
+
+  function clicarIgual() {
+    if (operador === "") {
+      return;
+    }
+    const b = parseFloat(visor);
+    if (isNaN(b)) {
+      alert("Digite o segundo numero!");
+      return;
+    }
+    setVisor(String(calc(numeroA, operador, b)));
+    setOperador("");
+  }
+
+  function limpar() {
+    setVisor("");
+    setOperador("");
+  }
+
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
@@ -58,37 +108,36 @@ export default function calcScreen() {
               <Button
                 key={numero}
                 title={numero}
-                onPress={() => digitar(numero)}
+                onPress={() => setVisor(digitar(visor, numero))}
               />
             ))}
-            <Button title="+" onPress={() => operacao("+", visor)} />
+            <Button title="+" onPress={() => clicarOperacao("+")} />
           </View>
           <View style={styles.linha}>
             {["4", "5", "6"].map((numero) => (
               <Button
                 key={numero}
                 title={numero}
-                onPress={() => digitar(numero)}
+                onPress={() => setVisor(digitar(visor, numero))}
               />
             ))}
-            <Button title="-" onPress={() => operacao("-", visor)} />
+            <Button title="-" onPress={() => clicarOperacao("-")} />
           </View>
           <View style={styles.linha}>
             {["1", "2", "3"].map((numero) => (
               <Button
                 key={numero}
                 title={numero}
-                onPress={() => digitar(numero)}
+                onPress={() => setVisor(digitar(visor, numero))}
               />
-            ))}{" "}
-            <Button title="x" onPress={() => operacao("x", visor)} />
+            ))}
+            <Button title="x" onPress={() => clicarOperacao("x")} />
           </View>
           <View style={styles.linha}>
-            <Button title="C" />
-            <Button title="0" onPress={() => digitar("0")} />
-            <View style={styles.espacoExtra}>
-              <Button title="/" onPress={() => operacao("/", visor)} />
-            </View>
+            <Button title="C" onPress={limpar} />
+            <Button title="0" onPress={() => setVisor(digitar(visor, "0"))} />
+            <Button title="=" onPress={clicarIgual} />
+            <Button title="/" onPress={() => clicarOperacao("/")} />
           </View>
         </ThemedView>
       </SafeAreaView>
