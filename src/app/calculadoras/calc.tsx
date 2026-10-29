@@ -32,7 +32,6 @@ function getDevMenuHint() {
   );
 }
 
-
 export function calc(a: number, op: string, b: number): number {
   if (op === "+") {
     return a + b;
@@ -44,7 +43,6 @@ export function calc(a: number, op: string, b: number): number {
     return a / b;
   }
 }
-
 
 export function operacao(dis: string, operador: string): number {
   if (operador !== "") {
@@ -111,7 +109,11 @@ export default function calcScreen() {
                 onPress={() => setVisor(digitar(visor, numero))}
               />
             ))}
-            <Button title="+" onPress={() => clicarOperacao("+")} />
+            <Button
+              title="+"
+              onPress={() => clicarOperacao("+")}
+              color="orange"
+            />
           </View>
           <View style={styles.linha}>
             {["4", "5", "6"].map((numero) => (
@@ -121,7 +123,11 @@ export default function calcScreen() {
                 onPress={() => setVisor(digitar(visor, numero))}
               />
             ))}
-            <Button title="-" onPress={() => clicarOperacao("-")} />
+            <Button
+              title="-"
+              onPress={() => clicarOperacao("-")}
+              color="orange"
+            />
           </View>
           <View style={styles.linha}>
             {["1", "2", "3"].map((numero) => (
@@ -131,13 +137,21 @@ export default function calcScreen() {
                 onPress={() => setVisor(digitar(visor, numero))}
               />
             ))}
-            <Button title="x" onPress={() => clicarOperacao("x")} />
+            <Button
+              title="x"
+              onPress={() => clicarOperacao("x")}
+              color="orange"
+            />
           </View>
           <View style={styles.linha}>
-            <Button title="C" onPress={limpar} />
+            <Button title="C" onPress={limpar} color="red" />
             <Button title="0" onPress={() => setVisor(digitar(visor, "0"))} />
-            <Button title="=" onPress={clicarIgual} />
-            <Button title="/" onPress={() => clicarOperacao("/")} />
+            <Button title="=" onPress={clicarIgual} color="green" />
+            <Button
+              title="/"
+              onPress={() => clicarOperacao("/")}
+              color="orange"
+            />
           </View>
         </ThemedView>
       </SafeAreaView>

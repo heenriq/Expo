@@ -27,6 +27,27 @@ export default function AppTabs() {
           renderingMode="template"
         />
       </NativeTabs.Trigger>
+            <NativeTabs.Trigger name="calculadoras/bhaskara">
+        <NativeTabs.Trigger.Label>bhaskara</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon
+          src={require('@/assets/images/tabIcons/explore.png')}
+          renderingMode="template"
+        />
+      </NativeTabs.Trigger>
+            <NativeTabs.Trigger name="calculadoras/pitagoras">
+        <NativeTabs.Trigger.Label>pitagora</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon
+          src={require('@/assets/images/tabIcons/explore.png')}
+          renderingMode="template"
+        />
+      </NativeTabs.Trigger>
+            <NativeTabs.Trigger name="calculadoras/calc">
+        <NativeTabs.Trigger.Label>calculadora</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon
+          src={require('@/assets/images/tabIcons/explore.png')}
+          renderingMode="template"
+        />
+      </NativeTabs.Trigger>
     </NativeTabs>
   );
 }
