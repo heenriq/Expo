@@ -8,8 +8,7 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TextInput,
-  View,
+  View
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -56,7 +55,6 @@ export function operacao(dis: string, operador: string): number {
   return numero;
 }
 
-// Cola o número apertado no final do visor
 export function digitar(visor: string, tecla: string): string {
   return visor + tecla;
 }

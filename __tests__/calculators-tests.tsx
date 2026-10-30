@@ -150,3 +150,8 @@ describe("digitar", () => {
     expect(digitar("0", "5")).toBe("05");
   });
 });
+
+
+pitagoras jpg
+remover as funções dos tsx de pagina e usar a do calculators
+arrumar a logica do pitagoras.
