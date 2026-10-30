@@ -5,6 +5,8 @@ import * as Device from "expo-device";
 import { useState } from "react";
 import { Button, Platform, StyleSheet, Text, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { calcDelta } from "@/components/calculators";
+
 
 function getDevMenuHint() {
   if (Platform.OS === "web") {
@@ -23,10 +25,6 @@ function getDevMenuHint() {
       press <ThemedText type="code">{shortcut}</ThemedText>
     </ThemedText>
   );
-}
-
-export function calcDelta(a, b, c) {
-  return b ** 2 - 4 * a * c;
 }
 
 export function calcBhaskara(a, b, c) {

@@ -8,11 +8,11 @@ import {
   Image,
   Platform,
   StyleSheet,
-  TextInput,
   Text,
+  TextInput,
 } from "react-native";
-import { blue } from "react-native-reanimated/lib/typescript/Colors";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { calcPitagoras } from "@/components/calculators";
 
 function getDevMenuHint() {
   if (Platform.OS === "web") {
@@ -31,25 +31,6 @@ function getDevMenuHint() {
       press <ThemedText type="code">{shortcut}</ThemedText>
     </ThemedText>
   );
-}
-
-export function calcPitagoras(a: number, b: number, c: number) {
-  if (
-    (isNaN(a) && isNaN(b)) ||
-    (isNaN(a) && isNaN(c)) ||
-    (isNaN(b) && isNaN(c))
-  ) {
-    return { result: "err" };
-  } else if (isNaN(a)) {
-    a = c + b;
-    return { result: a, lado: "A" };
-  } else if (isNaN(b)) {
-    b = a - c;
-    return { result: b, lado: "B" };
-  } else {
-    c = a - b;
-    return { result: c, lado: "C" };
-  }
 }
 
 export default function pitagorasScreen() {
@@ -76,7 +57,10 @@ export default function pitagorasScreen() {
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <ThemedView style={styles.heroSection}>
-          <Image source={require("./Pitagoras.jpg")} style={styles.Image} />
+          <Image
+            source={require("@/assets/images/Pitagoras.jpg")}
+            style={styles.Image}
+          />
           <Text style={styles.titleText}>Pitágoras</Text>
           <Text style={styles.baseText}>Hipotenusa: a² = b² + c²</Text>
           <Text style={styles.baseText}>

@@ -3,14 +3,9 @@ import { ThemedView } from "@/components/themed-view";
 import { BottomTabInset, MaxContentWidth, Spacing } from "@/constants/theme";
 import * as Device from "expo-device";
 import { useState } from "react";
-import {
-  Button,
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from "react-native";
+import { Button, Platform, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { calc, digitar, operacao } from "@/components/calculators";
 
 function getDevMenuHint() {
   if (Platform.OS === "web") {
@@ -29,34 +24,6 @@ function getDevMenuHint() {
       press <ThemedText type="code">{shortcut}</ThemedText>
     </ThemedText>
   );
-}
-
-export function calc(a: number, op: string, b: number): number {
-  if (op === "+") {
-    return a + b;
-  } else if (op === "-") {
-    return a - b;
-  } else if (op === "x") {
-    return a * b;
-  } else {
-    return a / b;
-  }
-}
-
-export function operacao(dis: string, operador: string): number {
-  if (operador !== "") {
-    alert("Somente uma operação é permitida por vez!");
-    return NaN;
-  }
-  const numero = parseFloat(dis);
-  if (isNaN(numero)) {
-    alert("Selecione ao menos um numero!");
-  }
-  return numero;
-}
-
-export function digitar(visor: string, tecla: string): string {
-  return visor + tecla;
 }
 
 export default function calcScreen() {
